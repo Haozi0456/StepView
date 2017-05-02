@@ -12,10 +12,15 @@ HorizontalStepView stepHSView;
 
 List<StepBean> stepsBeanList = new ArrayList<>();
         StepBean stepBean0 = new StepBean("接单",1);
+        
         StepBean stepBean1 = new StepBean("打包",1);
+        
         StepBean stepBean2 = new StepBean("出发",1);
+        
         StepBean stepBean3 = new StepBean("送单",0);
+        
         StepBean stepBean4 = new StepBean("完成",-1);
+        
         stepsBeanList.add(stepBean0);
         stepsBeanList.add(stepBean1);
         stepsBeanList.add(stepBean2);
@@ -54,7 +59,7 @@ List<StepBean> stepsBeanList = new ArrayList<>();
         
         list0.add(new StepBean("打包成功",1));
         
-        list0.add(new StepBean("配送员【包牙齿】已出发，联系电话【130-0000-0000】，感谢您的耐心等待，参加评价还能赢取好多礼物哦",0));
+        list0.add(new StepBean("配送员已出发，联系电话【130-0000-0000】，感谢您的耐心等待，参加评价还能赢取好多礼物哦",0));
         
         list0.add(new StepBean("感谢你在京东购物，欢迎你下次光临！",-1));
         
