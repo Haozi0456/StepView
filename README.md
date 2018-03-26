@@ -3,6 +3,25 @@
  
   此流程指示器配置灵活,垂直流程指示器会根据文字的高度自动绘制指示图标的位置. 此功能是在badoualy/stepper-indicator的工程上优化修改而成.
   
+使用:
+
+Step 1. Add the JitPack repository to your build file
+
+  Add it in your root build.gradle at the end of repositories:
+  
+	allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+  
+Step 2. Add the dependency
+
+	dependencies {
+	        compile 'com.github.Haozi0456:StepView:v1.0'
+	}
+
   
 ![image](https://github.com/Haozi0456/StepView/blob/master/pre.png)
  
