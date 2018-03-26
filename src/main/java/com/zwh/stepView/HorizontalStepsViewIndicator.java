@@ -21,13 +21,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
  * @author Zhaohao
  * @Date 2017/04/18 17:00
  * @Description: 水平指示器
  */
-public class HorizontalStepsViewIndicator extends View
-{
+public class HorizontalStepsViewIndicator extends View {
     //定义默认的高度   definition default height
     private int defaultStepIndicatorNum = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics());
 
@@ -41,7 +39,7 @@ public class HorizontalStepsViewIndicator extends View
     private float mLeftY;//左上方的Y位置  definition rectangle LeftY position
     private float mRightY;//右下方的位置  definition rectangle RightY position
 
-    private List<StepBean> mStepBeanList ;//当前有几部流程    there are currently few step
+    private List<StepBean> mStepBeanList;//当前有几部流程    there are currently few step
     private int mStepNum = 0;
     private float mLinePadding;//两条连线之间的间距  definition the spacing between the two circles
 
@@ -64,8 +62,7 @@ public class HorizontalStepsViewIndicator extends View
      *
      * @param onDrawListener
      */
-    public void setOnDrawListener(OnDrawIndicatorListener onDrawListener)
-    {
+    public void setOnDrawListener(OnDrawIndicatorListener onDrawListener) {
         mOnDrawListener = onDrawListener;
     }
 
@@ -74,24 +71,20 @@ public class HorizontalStepsViewIndicator extends View
      *
      * @return
      */
-    public float getCircleRadius()
-    {
+    public float getCircleRadius() {
         return mCircleRadius;
     }
 
 
-    public HorizontalStepsViewIndicator(Context context)
-    {
+    public HorizontalStepsViewIndicator(Context context) {
         this(context, null);
     }
 
-    public HorizontalStepsViewIndicator(Context context, AttributeSet attrs)
-    {
+    public HorizontalStepsViewIndicator(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public HorizontalStepsViewIndicator(Context context, AttributeSet attrs, int defStyle)
-    {
+    public HorizontalStepsViewIndicator(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init();
     }
@@ -99,8 +92,7 @@ public class HorizontalStepsViewIndicator extends View
     /**
      * init
      */
-    private void init()
-    {
+    private void init() {
         mStepBeanList = new ArrayList<>();
         mPath = new Path();
         mEffects = new DashPathEffect(new float[]{8, 8, 8, 8}, 1);
@@ -135,16 +127,13 @@ public class HorizontalStepsViewIndicator extends View
     }
 
     @Override
-    protected synchronized void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
-    {
+    protected synchronized void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int width = defaultStepIndicatorNum * 2;
-        if(MeasureSpec.UNSPECIFIED != MeasureSpec.getMode(widthMeasureSpec))
-        {
+        if (MeasureSpec.UNSPECIFIED != MeasureSpec.getMode(widthMeasureSpec)) {
             screenWidth = MeasureSpec.getSize(widthMeasureSpec);
         }
         int height = defaultStepIndicatorNum;
-        if(MeasureSpec.UNSPECIFIED != MeasureSpec.getMode(heightMeasureSpec))
-        {
+        if (MeasureSpec.UNSPECIFIED != MeasureSpec.getMode(heightMeasureSpec)) {
             height = Math.min(height, MeasureSpec.getSize(heightMeasureSpec));
         }
         width = (int) (mStepNum * mCircleRadius * 2 - (mStepNum - 1) * mLinePadding);
@@ -152,8 +141,7 @@ public class HorizontalStepsViewIndicator extends View
     }
 
     @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh)
-    {
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         //获取中间的高度,目的是为了让该view绘制的线和圆在该view垂直居中   get view centerY，keep current stepview center vertical
         mCenterY = 0.5f * getHeight();
@@ -163,8 +151,7 @@ public class HorizontalStepsViewIndicator extends View
         mRightY = mCenterY + mCompletedLineHeight / 2;
 
         mCircleCenterPointPositionList.clear();
-        for(int i = 0; i < mStepNum; i++)
-        {
+        for (int i = 0; i < mStepNum; i++) {
             //先计算全部最左边的padding值（getWidth()-（圆形直径+两圆之间距离）*2）
             float paddingLeft = (screenWidth - mStepNum * mCircleRadius * 2 - (mStepNum - 1) * mLinePadding) / 2;
             //add to list
@@ -174,37 +161,32 @@ public class HorizontalStepsViewIndicator extends View
         /**
          * set listener
          */
-        if(mOnDrawListener!=null)
-        {
+        if (mOnDrawListener != null) {
             mOnDrawListener.ondrawIndicator();
         }
     }
 
     @Override
-    protected synchronized void onDraw(Canvas canvas)
-    {
+    protected synchronized void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if(mOnDrawListener!=null)
-        {
+        if (mOnDrawListener != null) {
             mOnDrawListener.ondrawIndicator();
         }
         mUnCompletedPaint.setColor(mUnCompletedLineColor);
         mCompletedPaint.setColor(mCompletedLineColor);
 
         //-----------------------画线-------draw line-----------------------------------------------
-        for(int i = 0; i < mCircleCenterPointPositionList.size() -1; i++)
-        {
+        for (int i = 0; i < mCircleCenterPointPositionList.size() - 1; i++) {
             //前一个ComplectedXPosition
             final float preComplectedXPosition = mCircleCenterPointPositionList.get(i);
             //后一个ComplectedXPosition
             final float afterComplectedXPosition = mCircleCenterPointPositionList.get(i + 1);
 
-            if(i <= mComplectingPosition&&mStepBeanList.get(0).getState()!=StepBean.STEP_UNDO)//判断在完成之前的所有点
+            if (i <= mComplectingPosition && mStepBeanList.get(0).getState() != StepBean.STEP_UNDO)//判断在完成之前的所有点
             {
                 //判断在完成之前的所有点，画完成的线，这里是矩形,很细的矩形，类似线，为了做区分，好看些
                 canvas.drawRect(preComplectedXPosition + mCircleRadius - 10, mLeftY, afterComplectedXPosition - mCircleRadius + 10, mRightY, mCompletedPaint);
-            } else
-            {
+            } else {
                 mPath.moveTo(preComplectedXPosition + mCircleRadius, mCenterY);
                 mPath.lineTo(afterComplectedXPosition - mCircleRadius, mCenterY);
                 canvas.drawPath(mPath, mUnCompletedPaint);
@@ -214,25 +196,21 @@ public class HorizontalStepsViewIndicator extends View
 
 
         //-----------------------画图标-----draw icon-----------------------------------------------
-        for(int i = 0; i < mCircleCenterPointPositionList.size(); i++)
-        {
+        for (int i = 0; i < mCircleCenterPointPositionList.size(); i++) {
             final float currentComplectedXPosition = mCircleCenterPointPositionList.get(i);
             Rect rect = new Rect((int) (currentComplectedXPosition - mCircleRadius), (int) (mCenterY - mCircleRadius), (int) (currentComplectedXPosition + mCircleRadius), (int) (mCenterY + mCircleRadius));
 
             StepBean stepsBean = mStepBeanList.get(i);
 
-            if(stepsBean.getState()==StepBean.STEP_UNDO)
-            {
+            if (stepsBean.getState() == StepBean.STEP_UNDO) {
                 mDefaultIcon.setBounds(rect);
                 mDefaultIcon.draw(canvas);
-            }else if(stepsBean.getState()==StepBean.STEP_CURRENT)
-            {
+            } else if (stepsBean.getState() == StepBean.STEP_CURRENT) {
                 mCompletedPaint.setColor(Color.WHITE);
                 canvas.drawCircle(currentComplectedXPosition, mCenterY, mCircleRadius * 1.1f, mCompletedPaint);
                 mAttentionIcon.setBounds(rect);
                 mAttentionIcon.draw(canvas);
-            }else if(stepsBean.getState()==StepBean.STEP_COMPLETED)
-            {
+            } else if (stepsBean.getState() == StepBean.STEP_COMPLETED) {
                 mCompleteIcon.setBounds(rect);
                 mCompleteIcon.draw(canvas);
             }
@@ -245,8 +223,7 @@ public class HorizontalStepsViewIndicator extends View
      *
      * @return
      */
-    public List<Float> getCircleCenterPointPositionList()
-    {
+    public List<Float> getCircleCenterPointPositionList() {
         return mCircleCenterPointPositionList;
     }
 
@@ -255,19 +232,15 @@ public class HorizontalStepsViewIndicator extends View
      *
      * @param stepsBeanList 流程步数
      */
-    public void setStepNum(List<StepBean> stepsBeanList)
-    {
+    public void setStepNum(List<StepBean> stepsBeanList) {
         this.mStepBeanList = stepsBeanList;
         mStepNum = mStepBeanList.size();
 
-        if(mStepBeanList!=null&&mStepBeanList.size()>0)
-        {
-            for(int i = 0;i<mStepNum;i++)
-            {
+        if (mStepBeanList != null && mStepBeanList.size() > 0) {
+            for (int i = 0; i < mStepNum; i++) {
                 StepBean stepsBean = mStepBeanList.get(i);
                 {
-                    if(stepsBean.getState()==StepBean.STEP_COMPLETED)
-                    {
+                    if (stepsBean.getState() == StepBean.STEP_COMPLETED) {
                         mComplectingPosition = i;
                     }
                 }
@@ -282,8 +255,7 @@ public class HorizontalStepsViewIndicator extends View
      *
      * @param unCompletedLineColor
      */
-    public void setUnCompletedLineColor(int unCompletedLineColor)
-    {
+    public void setUnCompletedLineColor(int unCompletedLineColor) {
         this.mUnCompletedLineColor = unCompletedLineColor;
     }
 
@@ -292,8 +264,7 @@ public class HorizontalStepsViewIndicator extends View
      *
      * @param completedLineColor
      */
-    public void setCompletedLineColor(int completedLineColor)
-    {
+    public void setCompletedLineColor(int completedLineColor) {
         this.mCompletedLineColor = completedLineColor;
     }
 
@@ -302,8 +273,7 @@ public class HorizontalStepsViewIndicator extends View
      *
      * @param defaultIcon
      */
-    public void setDefaultIcon(Drawable defaultIcon)
-    {
+    public void setDefaultIcon(Drawable defaultIcon) {
         this.mDefaultIcon = defaultIcon;
     }
 
@@ -312,8 +282,7 @@ public class HorizontalStepsViewIndicator extends View
      *
      * @param completeIcon
      */
-    public void setCompleteIcon(Drawable completeIcon)
-    {
+    public void setCompleteIcon(Drawable completeIcon) {
         this.mCompleteIcon = completeIcon;
     }
 
@@ -322,8 +291,7 @@ public class HorizontalStepsViewIndicator extends View
      *
      * @param attentionIcon
      */
-    public void setAttentionIcon(Drawable attentionIcon)
-    {
+    public void setAttentionIcon(Drawable attentionIcon) {
         this.mAttentionIcon = attentionIcon;
     }
 
@@ -331,8 +299,7 @@ public class HorizontalStepsViewIndicator extends View
     /**
      * 设置对view监听
      */
-    public interface OnDrawIndicatorListener
-    {
+    public interface OnDrawIndicatorListener {
         void ondrawIndicator();
     }
 }

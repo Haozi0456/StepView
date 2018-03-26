@@ -22,7 +22,6 @@ import static android.content.ContentValues.TAG;
 
 
 /**
- *
  * @author Zhaohao
  * @Date 2017/04/18 16:59
  * @Description: 垂直流程指示器
@@ -141,12 +140,12 @@ public class VerticalStepViewIndicator extends View implements VerticalStepView.
         mRightY = mCenterX + (mCompletedLineHeight / 2);
         if (positionCircleList != null) {
 
-            if(mIsReverseDraw){
+            if (mIsReverseDraw) {
                 for (int i = mStepNum - 1; i >= 0; i--) {
                     float pos = positionCircleList.get(i) + mCircleRadius + 20;
                     mCircleCenterPointPositionList.add(pos);
                 }
-            }else{
+            } else {
                 for (int i = 0; i < mStepNum; i++) {
                     float pos = positionCircleList.get(i) + mCircleRadius + 20;
                     mCircleCenterPointPositionList.add(pos);
@@ -224,7 +223,6 @@ public class VerticalStepViewIndicator extends View implements VerticalStepView.
         }
         //-----------------------画图标-----draw icon-----------------------------------------------
     }
-
 
 
     /**

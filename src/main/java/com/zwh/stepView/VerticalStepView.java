@@ -21,9 +21,10 @@ import java.util.List;
 import static android.content.ContentValues.TAG;
 
 /**
- * 日期：16/6/24 11:48
- * <p/>
- * 描述：
+ *
+ * @author Zhaohao
+ * @Date 2017/04/18 17:00
+ * @Description: 垂直指示器
  */
 public class VerticalStepView extends LinearLayout {
     private LinearLayout mTextContainer;

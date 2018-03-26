@@ -1,9 +1,10 @@
 package com.zwh.stepView.bean;
 
 /**
- * 日期：16/9/3 00:36
- * <p/>
- * 描述：
+ *
+ * @author Zhaohao
+ * @Date 2017/04/26 13:45
+ * @Description: StepBean
  */
 public class StepBean
 {
