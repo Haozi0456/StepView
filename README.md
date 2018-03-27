@@ -1,4 +1,6 @@
-# StepView v1.0.2
+[![](https://jitpack.io/v/Haozi0456/StepView.svg)](https://jitpack.io/#Haozi0456/StepView)
+# StepView 
+
 步骤指示器,流程指示器
  
   此流程指示器配置灵活,垂直流程指示器会根据文字的高度自动绘制指示图标的位置. 此功能是在badoualy/stepper-indicator的工程上优化修改而成.
